@@ -22,7 +22,7 @@ $ npm run start:prod
 ## Testing
 
 ```bash
-#unit tests
+# unit tests
 $ npm test
 ```
 
