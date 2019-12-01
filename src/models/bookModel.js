@@ -43,6 +43,7 @@ async function getBook(id) {
             }
         ])
         .toArray();
+    if (!payload || payload.length === 0) return false;
     let avgScore = payload[0].scores.map(s => s.score);
     if(avgScore.length > 0) {
         avgScore = Number((avgScore.reduce((a, b) => a + b) / avgScore.length).toFixed(1));

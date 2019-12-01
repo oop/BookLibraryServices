@@ -5,6 +5,7 @@ async function get(req, res) {
     try {
         validationResult(req).throw();
         const payload = await bookModel.getBook(global.mongoTypes.ObjectID(req.params.id));
+        if (!payload) return res.status(500).json({ success: false });
         return res.json({ success: true, payload });
     } catch (ex) {
         return global.exceptionHandler(ex, req, res);

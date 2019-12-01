@@ -66,12 +66,13 @@ async function getUser(id) {
                 }
             }
         ])
-        .toArray();        
+        .toArray();
     const bookPayload = await getUserBooks(id);
+    if (!userPayload || userPayload.length === 0) return false;
     aggr.userInfo = userPayload[0];
-    for(let b in bookPayload) {
-        if(bookPayload[b].returned === 0) aggr.borrowedBooks.push(bookPayload[b].book[0])
-        if(bookPayload[b].returned === 1) aggr.returnedBooks.push(bookPayload[b].book[0])
+    for (let b in bookPayload) {
+        if (bookPayload[b].returned === 0) aggr.borrowedBooks.push(bookPayload[b].book[0])
+        if (bookPayload[b].returned === 1) aggr.returnedBooks.push(bookPayload[b].book[0])
     }
     if (!aggr) return [];
     return aggr;
@@ -84,7 +85,7 @@ async function createUser(name) {
         .insertOne({
             name
         });
-    if(payload && payload.insertedCount > 0) return payload.insertedId;
+    if (payload && payload.insertedCount > 0) return payload.insertedId;
     return false;
 }
 
