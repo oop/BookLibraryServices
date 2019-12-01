@@ -31,4 +31,6 @@ describe('user api', () => {
         expect(res.body).toHaveProperty('payload');
         expect(res.body.success).toBe(true);
     });
+
+     afterAll(() => setTimeout(() => process.exit(), 1000))
 });

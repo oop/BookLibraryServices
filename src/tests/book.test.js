@@ -64,4 +64,6 @@ describe('book api', () => {
         expect(res.status).toEqual(500);
         expect(res.body.success).toBe(false);
     });
+
+    afterAll(() => setTimeout(() => process.exit(), 1000));
 });
