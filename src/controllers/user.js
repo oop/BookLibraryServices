@@ -24,9 +24,9 @@ async function getAll(req, res) {
 async function create(req, res) {
     try {
         validationResult(req).throw();
-        const isSuccess = await userModel.createUser(req.body.name);
-        if (!isSuccess) return res.json({ success: false });
-        return res.json({ success: true });
+        const payload = await userModel.createUser(req.body.name);
+        if (!payload) return res.json({ success: false });
+        return res.json({ success: true, payload: { id: payload } });
     } catch (ex) {
         return global.exceptionHandler(ex, req, res);
     }

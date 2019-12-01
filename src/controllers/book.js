@@ -24,9 +24,9 @@ async function getAll(req, res) {
 async function create(req, res) {
     try {
         validationResult(req).throw();
-        const isSuccess = await bookModel.createBook(req.body.name);
-        if (!isSuccess) return res.json({ success: false });
-        return res.json({ success: true });
+        const payload = await bookModel.createBook(req.body.name);
+        if (!payload) return res.json({ success: false });
+        return res.json({ success: true, payload: { id: payload } });
     } catch (ex) {
         return global.exceptionHandler(ex, req, res);
     }
@@ -35,7 +35,7 @@ async function create(req, res) {
 async function borrow(req, res) {
     try {
         validationResult(req).throw();
-        const {u_id, b_id} = req.params;
+        const { u_id, b_id } = req.params;
         const isSuccess = await bookModel.borrowBook(global.mongoTypes.ObjectID(u_id), global.mongoTypes.ObjectID(b_id));
         if (!isSuccess) return res.json({ success: false });
         return res.json({ success: true });
@@ -47,8 +47,8 @@ async function borrow(req, res) {
 async function returnBook(req, res) {
     try {
         validationResult(req).throw();
-        const {u_id, b_id} = req.params;
-        const {score} = req.body;
+        const { u_id, b_id } = req.params;
+        const { score } = req.body;
         const isSuccess = await bookModel.returnBook(global.mongoTypes.ObjectID(u_id), global.mongoTypes.ObjectID(b_id), score);
         if (!isSuccess) return res.json({ success: false });
         return res.json({ success: true });

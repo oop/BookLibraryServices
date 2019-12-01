@@ -84,7 +84,7 @@ async function createUser(name) {
         .insertOne({
             name
         });
-    if(payload && payload.insertedCount > 0) return true;
+    if(payload && payload.insertedCount > 0) return payload.insertedId;
     return false;
 }
 

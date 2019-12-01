@@ -1,7 +1,6 @@
 const { SCORE_LIMIT } = require('../config');
 const { check } = require('express-validator');
-const requireDir = require('require-dir');
-const controllers = requireDir('./controllers');
+const controllers = require('./controllers');
 
 module.exports = (app) => {
     app.get('/users', controllers.user.getAll);
@@ -26,8 +25,8 @@ module.exports = (app) => {
             check('b_id').exists().isMongoId()
                 .withMessage('book id is incorrect'),
             check('score').exists().isNumeric()
-                .withMessage('score is incorrect').custom((s) => s < SCORE_LIMIT.MAX && s > SCORE_LIMIT.MIN)
-                .withMessage('you can give a score from 1 to 9 point system')
+                .withMessage('score is incorrect').custom((s) => s <= SCORE_LIMIT.MAX && s >= SCORE_LIMIT.MIN)
+                .withMessage(`you can give a score from ${SCORE_LIMIT.MIN} to ${SCORE_LIMIT.MAX} point system`)
         ],
         controllers.book.returnBook);
 };

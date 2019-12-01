@@ -44,7 +44,11 @@ async function getBook(id) {
         ])
         .toArray();
     let avgScore = payload[0].scores.map(s => s.score);
-    avgScore = Number((avgScore.reduce((a, b) => a + b) / avgScore.length).toFixed(1));
+    if(avgScore.length > 0) {
+        avgScore = Number((avgScore.reduce((a, b) => a + b) / avgScore.length).toFixed(1));
+    } else {
+        avgScore = 0;
+    }
     const { name, _id } = payload[0];
     dummyPayload = {
         id: _id,
@@ -62,7 +66,7 @@ async function createBook(name) {
         .insertOne({
             name
         });
-    if (payload && payload.insertedCount > 0) return true;
+    if (payload && payload.insertedCount > 0) return payload.insertedId;
     return false;
 }
 
@@ -83,8 +87,7 @@ async function borrowBook(u_id, b_id) {
                     bookId: ObjectID(book.id),
                     userId: ObjectID(user.userInfo.id),
                     score: 0,
-                    returned: 0,
-                    date: new Date().toISOString
+                    returned: 0
                 }
             }, { upsert: true })
     if (!payload) return false;
