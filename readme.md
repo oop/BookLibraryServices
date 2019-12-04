@@ -1,7 +1,7 @@
 ![](https://github.com/oop/BookLibraryServices/workflows/Node%20CI/badge.svg)
 
 ## Description
-A [Vivoo](https://vivoo.io) home assignment project.
+A home assignment project.
 
 ## Installation
 ```bash
