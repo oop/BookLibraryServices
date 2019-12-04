@@ -1,7 +1,7 @@
 ![](https://github.com/oop/BookLibraryServices/workflows/Node%20CI/badge.svg)
 
 ## Description
-A home assignment project.
+A library book management services.
 
 ## Installation
 ```bash
